@@ -6,6 +6,7 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -23,6 +24,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $img_path
  *
  * @property-read Group $group
+ * @property-read Grade[] $grades
  */
 class User extends Authenticatable
 {
@@ -69,7 +71,7 @@ class User extends Authenticatable
         ];
     }
 
-    //groups,grades,schedule(like teacher)
+    //grades,schedule(like teacher)
 
 
     /**
@@ -80,4 +82,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Group::class);
     }
+
+    /**
+     * @return HasMany
+     */
+    public function grades(): HasMany
+    {
+        return $this->hasMany(Grade::class);
+    }
+
+    //Todo Связи с посещаемостью
 }

@@ -4,12 +4,20 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    /**
+     * Login to account
+     * @param Request $request
+     * @return JsonResponse
+     * @throws ValidationException
+     */
+    public function login(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'login'=>'required|string|exists:users,login',
@@ -27,13 +35,12 @@ class AuthController extends Controller
         if(auth()->attempt($validator->validated())){
             /** @var User $user */
             $user = auth()->user();
-            $userResponce = [...$user->toArray()];
-            unset($userResponce['group_id']);
-            unset($userResponce['created_at']);
-            //TODO Ресурс и ответ по документации и ТОКЕН
+            $userResponse = [...$user->toArray()];
+            unset($userResponse['group_id']);
+            unset($userResponse['created_at']);
             return response()->json([
                 'user'=>[
-                    ...$userResponce,
+                    ...$userResponse,
                     'group'=>$user->group,
                 ],
                 'token'=>$user->createToken('api')->plainTextToken,
@@ -45,5 +52,15 @@ class AuthController extends Controller
                 'password'=>'Неправильный логин или пароль'
             ]
         ], 422);
+    }
+
+    public function logout(Request $request)
+    {
+        /** @var User $user */
+        $user = $request->user();
+
+        $user->currentAccessToken()->delete();
+
+        return response()->json([],204);
     }
 }

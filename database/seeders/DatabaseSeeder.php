@@ -168,6 +168,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'Иван', 'surname' => 'Иванов', 'patronymic' => 'Иванович',
+                'login'=>'ivanov',
                 'phone_number' => '+79998887766', 'email' => 'ivanov@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2003-05-10', 'img_path' => '/images/users/1.jpg',
@@ -175,6 +176,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Пётр', 'surname' => 'Петров', 'patronymic' => 'Петрович',
+                'login'=>'petrov',
                 'phone_number' => '+79995554433', 'email' => 'petrov@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2002-11-22', 'img_path' => '/images/users/2.jpg',
@@ -182,6 +184,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Мария', 'surname' => 'Сидорова', 'patronymic' => 'Игоревна',
+                'login'=>'sidorova',
                 'phone_number' => '+79990001122', 'email' => 'sidorova@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2004-03-15', 'img_path' => '/images/users/3.jpg',
@@ -189,6 +192,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Ольга', 'surname' => 'Кузнецова', 'patronymic' => 'Сергеевна',
+                'login'=>'kuznecova',
                 'phone_number' => '+79991234567', 'email' => 'kuznetsova@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '1990-09-01', 'img_path' => '/images/users/4.jpg',
@@ -196,6 +200,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Елена', 'surname' => 'Морозова', 'patronymic' => 'Викторовна',
+                'login'=>'morozova',
                 'phone_number' => '+79994443322', 'email' => 'morozova@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '1991-12-05', 'img_path' => '/images/users/5.jpg',
@@ -203,6 +208,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Кирилл', 'surname' => 'Смирнов', 'patronymic' => 'Алексеевич',
+                'login'=>'smirnov',
                 'phone_number' => '+79995556677', 'email' => 'smirnov@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2003-10-10', 'img_path' => '/images/users/6.jpg',
@@ -210,6 +216,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Сергей', 'surname' => 'Волков', 'patronymic' => 'Андреевич',
+                'login'=>'volkov',
                 'phone_number' => '+79996667788', 'email' => 'volkov@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2004-06-20', 'img_path' => '/images/users/7.jpg',
@@ -217,6 +224,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Анна', 'surname' => 'Николаева', 'patronymic' => 'Владимировна',
+                'login'=>'nikolaeva',
                 'phone_number' => '+79997778899', 'email' => 'nikolaeva@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '1995-02-01', 'img_path' => '/images/users/8.jpg',
@@ -224,6 +232,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Дмитрий', 'surname' => 'Орлов', 'patronymic' => 'Петрович',
+                'login'=>'orlov',
                 'phone_number' => '+79998889900', 'email' => 'orlov@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2001-04-18', 'img_path' => '/images/users/9.jpg',
@@ -231,6 +240,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Александр', 'surname' => 'Фёдоров', 'patronymic' => 'Михайлович',
+                'login'=>'fedorov',
                 'phone_number' => '+79991112233', 'email' => 'fedorov@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2002-08-30', 'img_path' => '/images/users/10.jpg',
@@ -238,6 +248,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Андрей', 'surname' => 'Сергеев', 'patronymic' => 'Владимирович',
+                'login'=>'sergeev',
                 'phone_number' => '+79990000001', 'email' => 'admin1@mail.ru',
                 'password' => bcrypt('admin123'),
                 'birth_date' => '1985-03-05', 'img_path' => '/images/users/admin1.jpg',
@@ -245,6 +256,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Татьяна', 'surname' => 'Фомина', 'patronymic' => 'Игоревна',
+                'login'=>'fomina',
                 'phone_number' => '+79990000002', 'email' => 'admin2@mail.ru',
                 'password' => bcrypt('admin123'),
                 'birth_date' => '1983-07-12', 'img_path' => '/images/users/admin2.jpg',
@@ -252,6 +264,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Иван', 'surname' => 'Иванов', 'patronymic' => 'Иванович',
+                'login'=>'ivanov2',
                 'phone_number' => '+79998887766', 'email' => 'ivanov2@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2003-05-10', 'img_path' => '/images/users/1.jpg',
@@ -259,6 +272,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Мария', 'surname' => 'Сидорова', 'patronymic' => 'Игоревна',
+                'login'=>'sidorova2',
                 'phone_number' => '+79990001122', 'email' => 'sidorova2@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2004-03-15', 'img_path' => '/images/users/3.jpg',
@@ -266,6 +280,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Кирилл', 'surname' => 'Смирнов', 'patronymic' => 'Алексеевич',
+                'login'=>'smirnov2',
                 'phone_number' => '+79995556677', 'email' => 'smirnov3@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2003-10-10', 'img_path' => '/images/users/6.jpg',
@@ -273,6 +288,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Сергей', 'surname' => 'Волков', 'patronymic' => 'Андреевич',
+                'login'=>'volkov2',
                 'phone_number' => '+79996667788', 'email' => 'volkov11@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2004-06-20', 'img_path' => '/images/users/7.jpg',
@@ -280,6 +296,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Дмитрий', 'surname' => 'Орлов', 'patronymic' => 'Петрович',
+                'login'=>'orlov2',
                 'phone_number' => '+79998889900', 'email' => 'orlov2@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2001-04-18', 'img_path' => '/images/users/9.jpg',
@@ -287,6 +304,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Александр', 'surname' => 'Фёдоров', 'patronymic' => 'Михайлович',
+                'login'=>'fedorov2',
                 'phone_number' => '+79991112233', 'email' => 'fedorov4@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2002-08-30', 'img_path' => '/images/users/10.jpg',

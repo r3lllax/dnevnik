@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('patronymic');
             $table->string('phone_number');
             $table->string('email')->unique();
+            $table->string('login')->unique();
 //            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->date('birth_date');

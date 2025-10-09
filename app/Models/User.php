@@ -5,10 +5,25 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $surname
+ * @property string $patronymic
+ * @property string $phone_number
+ * @property string $email
+ * @property string $login
+ * @property string $password
+ * @property string $birth_date
+ * @property string $img_path
+ *
+ * @property-read Group $group
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
@@ -21,8 +36,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
+        'patronymic',
+        'phone_number',
         'email',
+        'login',
         'password',
+        'birth_date',
+        'img_path',
     ];
 
     /**
@@ -46,5 +67,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    //groups,grades,schedule(like teacher)
+
+
+    /**
+     * user`s group
+     * @return BelongsTo
+     */
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(Group::class);
     }
 }

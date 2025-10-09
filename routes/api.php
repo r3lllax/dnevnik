@@ -9,9 +9,25 @@ use function Pest\Laravel\withMiddleware as withMiddlewareAlias;
 
 Route::post('/auth',[AuthController::class,'login']);
 
-
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/logout',[AuthController::class,'logout']);
+
+    // 1 - Admin
+    Route::group(['middleware' => ['role:1']], function () {
+
+    });
+
+    // 2 - Teacher
+    Route::group(['middleware' => ['role:2']], function () {
+
+    });
+
+    // 3 - Student
+    Route::group(['middleware' => ['role:3']], function () {
+
+    });
+
+    // other - all authorized requests
 
     Route::get('/semesters',function(){
         return response()->json([

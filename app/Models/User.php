@@ -17,6 +17,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $surname
  * @property string $patronymic
  * @property string $phone_number
+ * @property int $role_id
  * @property string $email
  * @property string $login
  * @property string $password
@@ -70,8 +71,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
-    //grades,schedule(like teacher)
 
 
     /**

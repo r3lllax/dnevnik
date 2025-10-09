@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('theme');
             $table->date('date');
+            $table->foreignId('subject_id')->constrained('subjects');
             $table->foreignId('type_id')->constrained('works_types');
         });
     }

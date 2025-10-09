@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('group_id')->constrained('groups');
             $table->foreignId('subject_id')->constrained('subjects');
-            $table->timestamps();
         });
     }
 

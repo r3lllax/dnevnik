@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('subject_id')->constrained('subjects');
-            $table->foreignId('work_id')->nullable()->constrained('works');// TODO:
-//            $table->foreignId('grade')->
+            $table->foreignId('work_id')->nullable()->constrained('works');
+            $table->string('grade');
+            $table->string('comment')->nullable();
+            $table->date('date');
+            $table->foreignId('semester_id')->constrained('semesters');
 
         });
     }

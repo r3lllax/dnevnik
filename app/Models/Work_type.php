@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Work_type extends Model
 {
+    protected $table = 'works_types';
     protected $fillable = [
         'name',
     ];

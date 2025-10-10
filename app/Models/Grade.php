@@ -7,14 +7,18 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int $id
- * @property string $value
+ * @property string $grade
  * @property string $comment
  * @property string $date
+ *
+ * @property-read Work $work
+ * @property-read Subject $subject
+ * @property-read User $user
  */
 class Grade extends Model
 {
     protected $fillable = [
-        'value',
+        'grade',
         'comment',
         'date',
     ];
@@ -25,7 +29,7 @@ class Grade extends Model
      */
     public function work(): HasOne
     {
-        return $this->hasOne(Work::class);
+        return $this->hasOne(Work::class,'id','work_id');
     }
 
     /**

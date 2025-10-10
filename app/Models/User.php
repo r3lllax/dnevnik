@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -26,6 +27,8 @@ use Laravel\Sanctum\HasApiTokens;
  *
  * @property-read Group $group
  * @property-read Grade[] $grades
+ * @property-read string $initials
+ * @property-read Role $role
  */
 class User extends Authenticatable
 {
@@ -60,6 +63,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * returns initials of user, format Surname N.P.
+     * @return string
+     */
+    public function initials(): string
+    {
+        return  mb_ucfirst($this->surname).' '.mb_ucfirst($this->name).' '.mb_ucfirst($this->patronymic);
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -80,6 +92,15 @@ class User extends Authenticatable
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
+    }
+
+    /**
+     * role of user
+     * @return HasOne
+     */
+    public function role(): HasOne
+    {
+        return $this->hasOne(Role::class,'id','role_id');
     }
 
     /**

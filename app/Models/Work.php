@@ -27,7 +27,7 @@ class Work extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(Work_type::class);
+        return $this->hasOne(Work_type::class,'id','type_id');
     }
 
     /**

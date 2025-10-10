@@ -22,7 +22,7 @@ class ScheduleController extends Controller
         $id = $request->get('group_id');
         //TODO не кореектно работает exists (вообще не работает)
         $validator = Validator::make($request->query(), [
-            'group_id' => 'required|exists:groups,id',
+            'group_id' => 'required|integer|exists:groups,id',
         ]);
 
         if ($validator->fails()) {

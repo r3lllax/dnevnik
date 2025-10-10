@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // 3 - Student
     Route::group(['middleware' => ['role:3']], function () {
-
+        Route::get('/grades',[GradeController::class,'index']);
     });
 
     //Смешанные
@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Учитель И Ученик:
 
     Route::group(['middleware' => ['role:3,2']], function () {
-        Route::get('/grade/{grade}',[GradeController::class,'index']);
+        Route::get('/grade/{grade}',[GradeController::class,'show']);
     });
 
     // other - all authorized requests

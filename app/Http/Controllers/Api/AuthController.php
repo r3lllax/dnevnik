@@ -23,6 +23,7 @@ class AuthController extends Controller
             'login'=>'required|string|exists:users,login',
             'password'=>'required|string',
         ]);
+
         if ($validator->fails()) {
             return response()->json([
                 'message'=>'Ошибка авторизации',

@@ -19,18 +19,10 @@ class ScheduleController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $id = $request->get('group_id');
-        //TODO не кореектно работает exists (вообще не работает)
-        $validator = Validator::make($request->query(), [
+        [$validatedData]=$this->validateQuery($request->query(),[
             'group_id' => 'required|integer|exists:groups,id',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors()
-            ]);
-        }
-
+        $id = $validatedData['group_id'];
         if($request->user()->role->name == 'Студент') {
             if($id == $request->user()->group_id){
                 return response()->json([$this->getSchedule($id)]);
@@ -41,8 +33,6 @@ class ScheduleController extends Controller
         }
 
         return response()->json([$this->getSchedule($id)]);
-
-
     }
 
     /**

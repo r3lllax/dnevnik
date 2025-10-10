@@ -3,8 +3,10 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GradeController;
 use App\Http\Controllers\Api\ScheduleController;
+use App\Http\Controllers\Api\WorkController;
 use App\Models\Semester;
 use App\Models\User;
+use App\Models\Work_type;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +22,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // 2 - Teacher
     Route::group(['middleware' => ['role:2']], function () {
-
+        Route::get('/types',function(){
+            return response()->json(Work_type::all());
+        });
+        Route::post('/job',[WorkController::class,'create']);
+        Route::patch('/job/{work}/edit',[WorkController::class,'edit']);
     });
 
     // 3 - Student

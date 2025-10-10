@@ -57,21 +57,13 @@ class GradeController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        //TODO Вынести валидацию в метод конревого контроллера (например Validate([data_array],[rules]), возвращает [$validatedData,$errorResponse(не факт, посмотреть как сделал в прошлоый работе)])
-        $semester_id = $request->get('semester_id');
-        $validator = Validator::make($request->query(), [
+        [$validatedData] = $this->validateQuery($request->query(),[
             'semester_id' => 'required|integer|exists:semesters,id',
         ]);
-        if ($validator->fails()){
-            return response()->json([
-                'message'=>'validation error',
-                'errors'=>$validator->errors()
-            ]);
-        }
 
         /** @var User $user */
         $user = $request->user();
-        $data = collect($user->grades()->where('semester_id', $semester_id)->get()->groupBy(['subject_id',function ($item) {
+        $data = collect($user->grades()->where('semester_id', $validatedData['semester_id'])->get()->groupBy(['subject_id',function ($item) {
             return $item->work_id === null ? 'advanced_grades' : 'main_grades';
         }]))->map(function ($items,$subject_id) {
             /** @var Subject $subject */

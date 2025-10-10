@@ -13,14 +13,18 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * @property-read Work_type $type
  * @property-read Grade[] $grades
+ * @property-read Subject $subject
  */
 class Work extends Model
 {
     protected $fillable = [
         'theme',
         'date',
+        'subject_id',
+        'type_id',
     ];
 
+    public $timestamps = false;
     /**
      * type of this work
      * @return HasOne
@@ -36,6 +40,14 @@ class Work extends Model
     public function grades(): HasMany
     {
         return $this->hasMany(Grade::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function subject(): HasOne
+    {
+        return $this->hasOne(Subject::class,'id','subject_id');
     }
 
 }

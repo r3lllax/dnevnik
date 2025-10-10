@@ -37,7 +37,13 @@ class WorkController extends Controller
         ],403);
     }
 
-    public function edit(EditWorkRequest $request,Work $work)
+    /**
+     * Edit teacher`s work
+     * @param EditWorkRequest $request
+     * @param Work $work
+     * @return JsonResponse
+     */
+    public function edit(EditWorkRequest $request,Work $work): JsonResponse
     {
         if ($work->subject->teacher->id===$request->user()->id){
             //TODO добавить защиту от одинаковых данных (пришли с фронта без изменения)

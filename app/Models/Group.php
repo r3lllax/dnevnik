@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $name
  *
  * @property-read User[] $users
+ * @property-read Subject[] $subjects
  */
 class Group extends Model
 {
@@ -41,5 +43,13 @@ class Group extends Model
     public function schedule(): HasMany
     {
         return $this->hasMany(Schedule::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function subjects(): BelongsToMany
+    {
+        return $this->belongsToMany(Subject::class,'groups_subjects','group_id','subject_id');
     }
 }

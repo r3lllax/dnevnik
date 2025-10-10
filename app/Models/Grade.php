@@ -21,7 +21,12 @@ class Grade extends Model
         'grade',
         'comment',
         'date',
+        'subject_id',
+        'work_id',
+        'semester_id',
     ];
+
+    public $timestamps = false;
 
     /**
      * work

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GradeController;
 use App\Http\Controllers\Api\ScheduleController;
+use App\Http\Controllers\Api\SemesterController;
 use App\Http\Controllers\Api\WorkController;
 use App\Models\Semester;
 use App\Models\User;
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         });
         Route::post('/job',[WorkController::class,'create']);
         Route::patch('/job/{work}/edit',[WorkController::class,'edit']);
+        Route::post('/student/{user}/add_grade',[GradeController::class,'create']);
     });
 
     // 3 - Student
@@ -46,29 +48,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/logout',[AuthController::class,'logout']);
 
-    Route::get('/semesters',function(){
-        //TODO Вынести логику из рутов
-        /** @var Semester $semesters */
-        $semesters = Semester::all();
-        $index = 0;
-        foreach($semesters as $item){
-            $now = Carbon::now();
-            $start = Carbon::parse($item->from);
-            $end = Carbon::parse($item->to);
-            if ($now->greaterThanOrEqualTo($start) && $now->lessThanOrEqualTo($end)) {
-                break;
-            }
-            $index++;
-        }
-        $otherSemesters = $semesters->toArray();
-        unset($otherSemesters[$index]);
-        return response()->json([
-            'semesters' => [
-                'current' => $semesters[$index],
-                'other'=>$otherSemesters
-            ]
-        ]);
-    });
+    Route::get('/semesters',[SemesterController::class,'index']);
 
     Route::get('/schedule',[ScheduleController::class,'index']);
 

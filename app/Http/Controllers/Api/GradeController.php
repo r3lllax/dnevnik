@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateGradeRequest;
 use App\Http\Resources\GradeResource;
 use App\Http\Resources\GroupLessonsResource;
 use App\Http\Resources\MiniGradeResource;
 use App\Models\Grade;
 use App\Models\Schedule;
+use App\Models\Semester;
 use App\Models\Subject;
 use App\Models\User;
 use Carbon\Carbon;
@@ -76,21 +78,26 @@ class GradeController extends Controller
             ];
         })->values();
 
-        // TODO Рефакторинг на более лучшие решения и читаемость
+        //Привожу к тому же виду для поиска отсутсвующих предметов
         $compareResponse = $data->map(function ($item){
            return[
                $item['name'],
            ];
         });
 
+        //Все предметы у группы студента
         $allSubjects = GroupLessonsResource::collection($user->group->group_lessons)->map(function ($item){
             return $item->subject->name;
         });
-        $flattened1 = $compareResponse->flatten();
-        $isSubset = $allSubjects->diff($flattened1)->isEmpty();
+
+        //Наши предметы в одномерный массив
+        $flatten = $compareResponse->flatten();
+
+        //Пусто - значит нет разницы
+        $isSubset = $allSubjects->diff($flatten)->isEmpty();
 
         if (!$isSubset) {
-            $missingItems = $allSubjects->diff($flattened1);
+            $missingItems = $allSubjects->diff($flatten);
             foreach ($missingItems as $missingItem) {
                 $subj = Subject::query()->where('name',$missingItem)->first();
                 $data[] = [
@@ -102,8 +109,64 @@ class GradeController extends Controller
             }
         }
 
-
         return response()->json(['subjects'=>$data]);
+
+    }
+
+    /**
+     * Add grade to student
+     * @param CreateGradeRequest $request
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function create(CreateGradeRequest $request,User $user): JsonResponse
+    {
+        $validatedData = $request->validated();
+        //TODO в целом решить вопрос о том, хардкодить роли по айдишнику или по имени,пока пусть будет по имени
+        if ($user->role->name!="Студент"){
+            return response()->json([
+                'message'=>'Данный пользователь не является учеником'
+            ],403);
+        }
+        $initials = $user->initials();
+        /** @var Subject $targetSubject */
+        $targetSubject = Subject::find($validatedData['subject_id']);
+
+        //TODO Рефактор более простым методом (уверен он есть)
+        $contains = collect($user->group->subjects)->pluck('id')->filter(function ($item) use ($targetSubject) {return $targetSubject->id == $item;})->values();
+        //Проверка на то что такой предмет вообще преподается у ученика
+        if($contains->isEmpty()){
+            return response()->json([
+                'message'=>"У ученика \"$initials\" не ведется предмет \"$targetSubject->name\""
+            ],403);
+        }
+
+        //Проверка ведет ли преподаватель предмет у ученика
+        if (!($targetSubject->teacher->id == $request->user()->id)){
+            return response()->json([
+                'message'=>"Вы не ведете предмет \"$targetSubject->name\" у ученика \"$initials\""
+            ],403);
+        }
+
+        //Проверка на то, что оценка за эту работу уже стоит у ученика
+        if (array_key_exists('work_id',$validatedData) && !($user->grades()->where('work_id', $validatedData['work_id'])->get()->isEmpty())){
+            return response()->json([
+                'message'=>"Ученик уже имеет оценку по данной работе, для исправления выберете соответствующую функцию"
+            ],403);
+        }
+        if (!array_key_exists('semester_id',$validatedData)){
+            [$semesters,$index] = $this->getCurrentSemester();
+            $validatedData['semester_id'] = $semesters[$index]->id;
+        }
+
+        $validatedData['date'] = Carbon::now()->format('Y-m-d');
+
+        /** @var Grade $createdGrade */
+        $createdGrade = $user->grades()->create($validatedData);
+        $theme = $createdGrade->work?$createdGrade->work->theme:false;
+        return response()->json([
+            'message'=>$theme?"Оценка \"$createdGrade->grade\" за работу \"$theme\" выставлена":"Оценка \"$createdGrade->grade\" выставлена",
+        ]);
 
     }
 }

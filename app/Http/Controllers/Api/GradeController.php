@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GradeResource;
+use App\Http\Resources\GroupLessonsResource;
 use App\Http\Resources\MiniGradeResource;
 use App\Models\Grade;
 use App\Models\Schedule;
@@ -48,8 +49,9 @@ class GradeController extends Controller
         ],403);
     }
 
+
     /**
-     * returns student grades for semester
+     * All student grades for semester
      * @param Request $request
      * @return JsonResponse
      */
@@ -82,16 +84,32 @@ class GradeController extends Controller
             ];
         })->values();
 
-        // TODO Проверка наличия всех предметов ответе
-        //Перед отрпавкой добавлять добавлять пустые предметы, так как сейчас отправляются только те, за которые получена хотя бы одна ошибка
-        //То есть брать список предметов у группы студента, и проверять есть ли записи о них в ответе, если нет, то добавлять пустой объект с этим объекм вида
-        //{
-        //  id:ID,
-        //  name:NAME,
-        //  main_grades:[],
-        //  advanced_grades:[]
-        //}
-        //Чтобы на фронте при просмотре оценок отрисовывались все предметы
+        // TODO Рефакторинг на более лучшие решения и читаемость
+        $compareResponse = $data->map(function ($item){
+           return[
+               $item['name'],
+           ];
+        });
+
+        $allSubjects = GroupLessonsResource::collection($user->group->group_lessons)->map(function ($item){
+            return $item->subject->name;
+        });
+        $flattened1 = $compareResponse->flatten();
+        $isSubset = $allSubjects->diff($flattened1)->isEmpty();
+
+        if (!$isSubset) {
+            $missingItems = $allSubjects->diff($flattened1);
+            foreach ($missingItems as $missingItem) {
+                $subj = Subject::query()->where('name',$missingItem)->first();
+                $data[] = [
+                      'id'=>$subj->id,
+                      'name'=>$subj->name,
+                      'main_grades'=>[],
+                      'advanced_grades'=>[]
+                    ];
+            }
+        }
+
 
         return response()->json(['subjects'=>$data]);
 

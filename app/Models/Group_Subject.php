@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Group_Subject extends Model
 {
+    protected $table = 'groups_subjects';
     /**
      * @return BelongsTo
      */

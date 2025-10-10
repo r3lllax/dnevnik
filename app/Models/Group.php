@@ -30,6 +30,14 @@ class Group extends Model
     /**
      * @return HasMany
      */
+    public function group_lessons(): HasMany
+    {
+        return $this->hasMany(Group_Subject::class, 'group_id','id');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function schedule(): HasMany
     {
         return $this->hasMany(Schedule::class);

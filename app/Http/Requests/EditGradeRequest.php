@@ -17,9 +17,9 @@ class EditGradeRequest extends FormRequest
     {
         return [
             'work_id'=>'nullable|integer|exists:works,id',
-            'grade'=>'required',
-            'comment'=>'',
-            'semester_id'=>'required',//TODO узнать про обязательное поле при изменении или нет
+            'grade'=>'required|integer|min:1|max:5',
+            'comment'=>'nullable|string|max:255',
+            'semester_id'=>'required|integer|exists:semesters,id',//TODO узнать про обязательное поле при изменении или нет
         ];
     }
 }

@@ -15,6 +15,7 @@ use App\Models\Schedule;
 use App\Models\Semester;
 use App\Models\Subject;
 use App\Models\User;
+use App\Models\Work;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -133,9 +134,19 @@ class GradeController extends Controller
                 'message'=>'Данный пользователь не является учеником'
             ],403);
         }
+
+
         $initials = $user->initials();
+
         /** @var Subject $targetSubject */
         $targetSubject = Subject::find($validatedData['subject_id']);
+
+        $work = Work::find($validatedData['work_id']);
+        if(!($work->subject->name===$targetSubject->name)){
+            return response()->json([
+                'message'=>"Тема \"$work->theme\" не относится к предмету \"$targetSubject->name\""
+            ],403);
+        }
 
         //Проверка что преподаватель вообще ведет этот предмет
         if (!($targetSubject->teacher->id == $request->user()->id)){
@@ -233,9 +244,26 @@ class GradeController extends Controller
         ]);
     }
 
-    public function edit(EditGradeRequest $request,Grade $grade)
+    /**
+     * Edit student`s grade
+     * @param EditGradeRequest $request
+     * @param Grade $grade
+     * @return JsonResponse
+     */
+    public function edit(EditGradeRequest $request,Grade $grade): JsonResponse
     {
-        $subject =$grade->subject;
+        //TODO проверка на одинаковые данные с фронта
+        $validatedData = $request->validated();
+        /** @var Work $work */
+        $subject = $grade->subject;
+        if(array_key_exists('work_id',$validatedData)&& $validatedData['work_id']!=null){
+            $work = Work::find($validatedData['work_id']);
+            if (!($work->subject->name===$grade->subject->name)){
+                return response()->json([
+                    'message'=>"Тема \"$work->theme\" не относится к предмету \"$subject->name\""
+                ],403);
+            }
+        }
         $initials = $subject->teacher->initials();
 
         /** @var Collection $teacherSubjects */
@@ -251,7 +279,11 @@ class GradeController extends Controller
                 'message'=>"Вы не можете изменить эту оценку, так как вы не ведете предмет \"$subject->name\"".$adSection
             ],403);
         }
+        $grade->fill($validatedData);
 
-
+        return response()->json([
+            'success'=>true,
+            'message'=>"Оценка успешно изменена!"
+        ]);
     }
 }

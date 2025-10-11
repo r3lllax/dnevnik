@@ -19,7 +19,7 @@ class GradeResource extends JsonResource
         $grade = $this;
         return [
             'date'=>$grade->date,
-            'grade'=>$grade->grade,
+            'grade'=>(int)$grade->grade,
             'subject'=>SubjectResource::make($grade->subject),
             'job'=>WorkResource::make($grade->work),
             'comment'=>$grade->comment,

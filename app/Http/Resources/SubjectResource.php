@@ -20,8 +20,7 @@ class SubjectResource extends JsonResource
         return [
             'name' => $subject->name,
             'teacher'=>$subject->teacher->initials(),
-            //TODO semester объект узнать
-            //semester
+            //TODO semester
 
         ];
     }

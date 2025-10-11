@@ -19,7 +19,8 @@ class ScheduleDayResource extends JsonResource
     {
         return [
             'date'=>$this['date'],
-            'day_of_week'=>$this['day_of_week'],
+            'day_of_week_number'=>$this['day_of_week_number'],
+            'day_of_week_string'=>$this['day_of_week_string'],
             'subjects'=>SubjectInScheduleResource::collection($this['subjects']),
         ];
     }

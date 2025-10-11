@@ -48,9 +48,6 @@ class GradeController extends Controller
             if ($grade->subject->teacher->id == $request->user()->id){
                 return response()->json(GradeResource::make($grade));
             }
-            return response()->json([
-                'message'=>'Ошибка доступа.'
-            ],403);
         }
         return response()->json([
             'message'=>'Ошибка доступа.'
@@ -87,7 +84,7 @@ class GradeController extends Controller
             })->values();
             $avgGrade = $allGrades->count()>0?array_sum($allGrades->toArray())/$allGrades->count():0;
             return [
-                'name'=>$subject_name,
+                'subject'=>$subject_name,
                 'avg'=>round($avgGrade,2),
                 'main_grades'=>MiniGradeResource::collection($items['main_grades']),
                 'advanced_grades'=>array_key_exists('advanced_grades', $items->toArray())?MiniGradeResource::collection($items['advanced_grades']):[],
@@ -96,7 +93,7 @@ class GradeController extends Controller
         //Привожу к тому же виду для поиска отсутсвующих предметов
         $compareResponse = $data->map(function ($item){
            return[
-               $item['name'],
+               $item['subject'],
            ];
         });
 
@@ -116,7 +113,7 @@ class GradeController extends Controller
             foreach ($missingItems as $missingItem) {
                 $subj = Subject::query()->where('name',$missingItem)->first();
                 $data[] = [
-                    'name'=>$subj->name,
+                    'subject'=>$subj->name,
                     'avg'=>0,
                     'main_grades'=>[],
                     'advanced_grades'=>[]
@@ -137,29 +134,20 @@ class GradeController extends Controller
     public function create(CreateGradeRequest $request,User $user): JsonResponse
     {
         $validatedData = $request->validated();
-        //TODO в целом решить вопрос о том, хардкодить роли по айдишнику или по имени,пока пусть будет по имени
         if ($user->role->name!="Студент" && $user->role->name!="Староста"){
             return response()->json([
                 'message'=>'Данный пользователь не является учеником'
             ],403);
         }
 
-
         $initials = $user->initials();
 
+
+
         /** @var Subject $targetSubject */
-        if(array_key_exists('work_id',$validatedData)){
-            $work = Work::find($validatedData['work_id']);
-            if(!($work->subject->name===$targetSubject->name)){
-                return response()->json([
-                    'message'=>"Тема \"$work->theme\" не относится к предмету \"$targetSubject->name\""
-                ],403);
-            }
-        }
         $targetSubject = Subject::find($validatedData['subject_id']);
 
         //Проверка что преподаватель вообще ведет этот предмет
-
         $reqUserSubjects = $request->user()->subjects->map(function ($item,$key){
             return $item->name;
         })->values();
@@ -169,7 +157,15 @@ class GradeController extends Controller
             ],403);
         }
 
-        //TODO Рефактор более простым методом (уверен он есть)
+        if(array_key_exists('work_id',$validatedData)){
+            $work = Work::find($validatedData['work_id']);
+            if(!($work->subject->name===$targetSubject->name)){
+                return response()->json([
+                    'message'=>"Тема \"$work->theme\" не относится к предмету \"$targetSubject->name\""
+                ],403);
+            }
+        }
+
         $contains = collect($user->group->subjects)->pluck('id')->filter(function ($item) use ($targetSubject) {return $targetSubject->id == $item;})->values();
         //Проверка на то что такой предмет вообще преподается у ученика
         if($contains->isEmpty()){

@@ -17,7 +17,7 @@ class CreateGradeRequest extends FormRequest
         return [
             'subject_id'=>'required|integer|exists:subjects,id',
             'work_id'=>'nullable|integer|exists:works,id',
-            'grade'=>'required|integer|min:1|max:5', //TODO Возможно вынести n-бальную систему оценивания (ведь не всегда 1-5, а например 1-12, или A-F)
+            'grade'=>'required|integer|min:1|max:5', //TODO Возможное улучшение - добавление таблицы grades, просто на будущее
             'comment'=>'nullable|string|max:255',
             'semester_id'=>'nullable|integer|exists:semesters,id',
         ];

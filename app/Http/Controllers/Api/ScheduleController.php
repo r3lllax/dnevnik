@@ -42,10 +42,23 @@ class ScheduleController extends Controller
      */
     private function getSchedule($id): array
     {
-        $data = collect(Schedule::query()->where(['group_id' => $id])->get()->groupBy(['date']))->map(function ($items,$date) {
+        $strDaysOfWeek = [
+          1 => "Понедельник",
+          2 => "Вторник",
+          3 => "Среда",
+          4 => "Четверг",
+          5 => "Пятница",
+          6 => "Суббота",
+          7 => "Воскресенье",
+        ];
+
+        $data = collect(Schedule::query()->where(['group_id' => $id])->get()->groupBy(['date']))->map(function ($items,$date) use ($strDaysOfWeek) {
             return [
                 'date' => $date,
-                'day_of_week'=>Carbon::parse($date)->dayOfWeek(),
+                'day_of_week_number'=>Carbon::parse($date)->dayOfWeek(),
+                'day_of_week_string'=>$strDaysOfWeek[Carbon::parse($date)->dayOfWeek()],
+                //TODO Локализация
+                //Можно локализировать на уровне сервера, а можно на уровне ответа пользователю(в зависимости от его региона или языка)
                 'subjects'=>$items
             ];
         })->values();

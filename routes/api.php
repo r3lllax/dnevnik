@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\withMiddleware as withMiddlewareAlias;
 
+//TODO app_debug false при релизе
 Route::post('/auth',[AuthController::class,'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {

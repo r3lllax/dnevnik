@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Администратор'],
             ['name' => 'Учитель'],
             ['name' => 'Студент'],
+            ['name' => 'Староста'],
         ]);
 
         DB::table('groups')->insert([
@@ -220,7 +221,7 @@ class DatabaseSeeder extends Seeder
                 'phone_number' => '+79996667788', 'email' => 'volkov@mail.ru',
                 'password' => bcrypt('password'),
                 'birth_date' => '2004-06-20', 'img_path' => '/images/users/7.jpg',
-                'group_id' => 5, 'role_id' => 3,
+                'group_id' => 5, 'role_id' => 4,
             ],
             [
                 'name' => 'Анна', 'surname' => 'Николаева', 'patronymic' => 'Владимировна',

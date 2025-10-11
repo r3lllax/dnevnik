@@ -23,7 +23,7 @@ class ScheduleController extends Controller
             'group_id' => 'required|integer|exists:groups,id',
         ]);
         $id = $validatedData['group_id'];
-        if($request->user()->role->name == 'Студент') {
+        if($request->user()->role->name == 'Студент' || $request->user()->role->name == 'Староста') {
             if($id == $request->user()->group_id){
                 return response()->json([$this->getSchedule($id)]);
             }

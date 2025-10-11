@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read Grade[] $grades
  * @property-read Schedule[] $schedule
  * @property-read Group[] $groups
+ * @property-read Work[] $works
  */
 class Subject extends Model
 {
@@ -55,5 +56,13 @@ class Subject extends Model
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class,'groups_subjects','subject_id','group_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function works(): HasMany
+    {
+        return $this->hasMany(Work::class);
     }
 }

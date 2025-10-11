@@ -35,7 +35,7 @@ class GradeController extends Controller
     {
         /** @var User $user */
         $user = $request->user();
-        if ($user->role->name=="Студент"){
+        if ($user->role->name=="Студент" || $user->role->name=="Староста"){
             if ($user->grades->contains($grade)){
                 return response()->json(GradeResource::make($grade));
             }
@@ -129,7 +129,7 @@ class GradeController extends Controller
     {
         $validatedData = $request->validated();
         //TODO в целом решить вопрос о том, хардкодить роли по айдишнику или по имени,пока пусть будет по имени
-        if ($user->role->name!="Студент"){
+        if ($user->role->name=="Студент" || $user->role->name=="Староста"){
             return response()->json([
                 'message'=>'Данный пользователь не является учеником'
             ],403);

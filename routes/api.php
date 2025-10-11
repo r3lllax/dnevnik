@@ -27,22 +27,24 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             return response()->json(Work_type::all());
         });
         Route::post('/job',[WorkController::class,'create']);
+        Route::get('/job',[WorkController::class,'index']);
+        Route::get('/job/{work}/',[WorkController::class,'show']);
         Route::patch('/job/{work}/edit',[WorkController::class,'edit']);
         Route::patch('/grade/{grade}/edit',[GradeController::class,'edit']);
         Route::post('/student/{user}/add_grade',[GradeController::class,'create']);
         Route::get('/group/{group}/grades',[GradeController::class,'groupGrades']);
     });
 
-    // 3 - Student
-    Route::group(['middleware' => ['role:3']], function () {
+    // 3 - Student(includes headman)
+    Route::group(['middleware' => ['role:3,4']], function () {
         Route::get('/grades',[GradeController::class,'index']);
     });
 
     //Смешанные
 
-    //Учитель И Ученик:
+    //Учитель И Ученик(включительно староста):
 
-    Route::group(['middleware' => ['role:3,2']], function () {
+    Route::group(['middleware' => ['role:3,2,4']], function () {
         Route::get('/grade/{grade}',[GradeController::class,'show']);
     });
 
@@ -55,9 +57,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/schedule',[ScheduleController::class,'index']);
 
     Route::get('/test',function(){
-        /** @var User $user */
-        $user = auth()->user();
-        return $user->group->schedule[0]->time;
+
+        /** @var \App\Models\Group $group */
+        $group = \App\Models\Group::find(5);
+        dd($group->headman());
     });
 });
 

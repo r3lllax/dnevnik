@@ -64,13 +64,21 @@ class Group extends Model
         return $this->hasManyThrough(Grade::class, User::class);
     }
 
-    public function teacherTeachThisGroup($uid)
+    /**
+     * @param $uid
+     * @return bool
+     */
+    public function teacherTeachThisGroup($uid): bool
     {
         $teachers = $this->subjects->map(function ($subject) {
             return $subject->teacher->id;
         });
 
-        return $teachers->contains($uid)?true:false;
+        return (bool)$teachers->contains($uid);
+    }
 
+    public function headman()
+    {
+        return $this->users()->where('role_id',Role::query()->where('name','Староста')->first()->id)->first();
     }
 }

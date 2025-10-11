@@ -3,9 +3,9 @@
 <h2>Ctrl C + Ctrl V</h2>
 cp .env.example .env 
 
-php artisan key:generate
+composer install
 
-composer install 
+php artisan key:generate
 
 php artisan migrate --seed 
 

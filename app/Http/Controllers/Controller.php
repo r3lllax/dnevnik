@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Semester;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 abstract class Controller
 {
@@ -13,7 +14,7 @@ abstract class Controller
      * @param $query
      * @param $rules
      * @return array
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     protected function validateQuery($query,$rules): array
     {

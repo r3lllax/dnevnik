@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateGradeRequest;
+use App\Http\Requests\EditGradeRequest;
+use App\Http\Resources\DetailedMiniGradeResource;
 use App\Http\Resources\GradeResource;
 use App\Http\Resources\GroupLessonsResource;
 use App\Http\Resources\MiniGradeResource;
 use App\Models\Grade;
+use App\Models\Group;
 use App\Models\Schedule;
 use App\Models\Semester;
 use App\Models\Subject;
@@ -15,7 +18,9 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class GradeController extends Controller
 {
@@ -132,21 +137,23 @@ class GradeController extends Controller
         /** @var Subject $targetSubject */
         $targetSubject = Subject::find($validatedData['subject_id']);
 
+        //Проверка что преподаватель вообще ведет этот предмет
+        if (!($targetSubject->teacher->id == $request->user()->id)){
+            return response()->json([
+                'message'=>"Вы не ведете предмет \"$targetSubject->name\""
+            ],403);
+        }
+
         //TODO Рефактор более простым методом (уверен он есть)
         $contains = collect($user->group->subjects)->pluck('id')->filter(function ($item) use ($targetSubject) {return $targetSubject->id == $item;})->values();
         //Проверка на то что такой предмет вообще преподается у ученика
         if($contains->isEmpty()){
             return response()->json([
-                'message'=>"У ученика \"$initials\" не ведется предмет \"$targetSubject->name\""
-            ],403);
-        }
-
-        //Проверка ведет ли преподаватель предмет у ученика
-        if (!($targetSubject->teacher->id == $request->user()->id)){
-            return response()->json([
                 'message'=>"Вы не ведете предмет \"$targetSubject->name\" у ученика \"$initials\""
             ],403);
         }
+
+
 
         //Проверка на то, что оценка за эту работу уже стоит у ученика
         if (array_key_exists('work_id',$validatedData) && !($user->grades()->where('work_id', $validatedData['work_id'])->get()->isEmpty())){
@@ -167,6 +174,84 @@ class GradeController extends Controller
         return response()->json([
             'message'=>$theme?"Оценка \"$createdGrade->grade\" за работу \"$theme\" выставлена":"Оценка \"$createdGrade->grade\" выставлена",
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param Group $group
+     * @return JsonResponse
+     * @throws ValidationException
+     */
+    public function groupGrades(Request $request,Group $group): JsonResponse
+    {
+        [$validatedData] = $this->validateQuery($request->query(),[
+            //TODO За все время
+            'semester_id' => 'required|integer|exists:semesters,id',
+            'subject_id' => 'required|integer|exists:subjects,id',
+        ]);
+
+        /** @var Subject $targetSubject */
+        $targetSubject = Subject::find($validatedData['subject_id']);
+        if(!($targetSubject->teacher->id == $request->user()->id)){
+            return response()->json([
+                'message'=>"Вы не ведете предмет \"$targetSubject->name\""
+            ],403);
+        }
+
+
+        if(!($group->teacherTeachThisGroup($request->user()->id))){
+            return response()->json([
+                'message'=>"Вы не ведете предметы у группы \"$group->name\""
+            ],403);
+        }
+
+        //TODO возможно понадобится вынести в ресурс
+        /** @var Semester $semester */
+        $semester = Semester::find($validatedData['semester_id']);
+        unset($semester['from']);
+        unset($semester['to']);
+
+        $students = $group->grades()
+            ->where('semester_id', $validatedData['semester_id'])
+            ->where('subject_id', $validatedData['subject_id'])
+            ->get()
+            ->groupBy(['user_id'])
+            ->map(function ($items){
+                /** @var User $user */
+                $user = User::find($items[0]->user_id);
+                return [
+                    'id'=>$user->id,
+                    'name'=>$user->name,
+                    'surname'=>$user->surname,
+                    'patronymic'=>$user->patronymic,
+                    'grades'=>DetailedMiniGradeResource::collection($items),
+                ];
+            })->values();
+        return response()->json([
+            'semester'=>$semester,
+            'students'=>$students,
+        ]);
+    }
+
+    public function edit(EditGradeRequest $request,Grade $grade)
+    {
+        $subject =$grade->subject;
+        $initials = $subject->teacher->initials();
+
+        /** @var Collection $teacherSubjects */
+        $teacherSubjects = $request->user()->subjects->map(function ($item){
+            return $item->name;
+        });
+
+        //Нельзя поменять оценку, если предмет оценки ведет не текущий препод, так же интерпретируется как ошибка, если пытаемся поменять оценку по этом уже предмету, но оценку выставил другой преподаватель
+
+        $adSection =$teacherSubjects->contains($subject->name)?" или оценку выставили не вы ($initials)":"";
+        if(!($subject->teacher->id==$request->user()->id)){
+            return response()->json([
+                'message'=>"Вы не можете изменить эту оценку, так как вы не ведете предмет \"$subject->name\"".$adSection
+            ],403);
+        }
+
 
     }
 }

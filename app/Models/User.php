@@ -29,6 +29,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read Grade[] $grades
  * @property-read string $initials
  * @property-read Role $role
+ * @property-read Subject[] $subjects
  */
 class User extends Authenticatable
 {
@@ -109,6 +110,14 @@ class User extends Authenticatable
     public function grades(): HasMany
     {
         return $this->hasMany(Grade::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function subjects(): HasMany
+    {
+        return $this->hasMany(Subject::class,'teacher_id','id');
     }
 
     //Todo Связи с посещаемостью

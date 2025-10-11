@@ -28,7 +28,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         });
         Route::post('/job',[WorkController::class,'create']);
         Route::patch('/job/{work}/edit',[WorkController::class,'edit']);
+        Route::patch('/grade/{grade}/edit',[GradeController::class,'edit']);
         Route::post('/student/{user}/add_grade',[GradeController::class,'create']);
+        Route::get('/group/{group}/grades',[GradeController::class,'groupGrades']);
     });
 
     // 3 - Student

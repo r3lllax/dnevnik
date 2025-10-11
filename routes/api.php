@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
         /** @var \App\Models\Group $group */
         $group = \App\Models\Group::find(5);
-        dd($group->headman());
+        return $group->users;
     });
 });
 

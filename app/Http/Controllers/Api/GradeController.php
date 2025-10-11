@@ -59,9 +59,9 @@ class GradeController extends Controller
 
 
     /**
-     * All student grades for semester
      * @param Request $request
      * @return JsonResponse
+     * @throws ValidationException
      */
     public function index(Request $request): JsonResponse
     {
@@ -71,19 +71,28 @@ class GradeController extends Controller
 
         /** @var User $user */
         $user = $request->user();
-        $data = collect($user->grades()->where('semester_id', $validatedData['semester_id'])->get()->groupBy(['subject_id',function ($item) {
+        $data = collect($user
+            ->grades()
+            ->join('subjects','grades.subject_id','=','subjects.id')
+            ->where('semester_id', $validatedData['semester_id'])
+            ->get()
+            ->groupBy(['name',function ($item) {
             return $item->work_id === null ? 'advanced_grades' : 'main_grades';
-        }]))->map(function ($items,$subject_id) {
+        }]))
+            ->map(function ($items,$subject_name) {
+
             /** @var Subject $subject */
-            $subject = Subject::find($subject_id);
+            $allGrades =collect($items)->collapse()->map(function ($item) {
+                return (int)$item->grade;
+            })->values();
+            $avgGrade = $allGrades->count()>0?array_sum($allGrades->toArray())/$allGrades->count():0;
             return [
-                'id'=>$subject_id,
-                'name'=>$subject->name,
+                'name'=>$subject_name,
+                'avg'=>round($avgGrade,2),
                 'main_grades'=>MiniGradeResource::collection($items['main_grades']),
                 'advanced_grades'=>array_key_exists('advanced_grades', $items->toArray())?MiniGradeResource::collection($items['advanced_grades']):[],
             ];
         })->values();
-
         //Привожу к тому же виду для поиска отсутсвующих предметов
         $compareResponse = $data->map(function ($item){
            return[
@@ -107,11 +116,11 @@ class GradeController extends Controller
             foreach ($missingItems as $missingItem) {
                 $subj = Subject::query()->where('name',$missingItem)->first();
                 $data[] = [
-                      'id'=>$subj->id,
-                      'name'=>$subj->name,
-                      'main_grades'=>[],
-                      'advanced_grades'=>[]
-                    ];
+                    'name'=>$subj->name,
+                    'avg'=>0,
+                    'main_grades'=>[],
+                    'advanced_grades'=>[]
+                ];
             }
         }
 
@@ -129,7 +138,7 @@ class GradeController extends Controller
     {
         $validatedData = $request->validated();
         //TODO в целом решить вопрос о том, хардкодить роли по айдишнику или по имени,пока пусть будет по имени
-        if ($user->role->name=="Студент" || $user->role->name=="Староста"){
+        if ($user->role->name!="Студент" && $user->role->name!="Староста"){
             return response()->json([
                 'message'=>'Данный пользователь не является учеником'
             ],403);
@@ -139,17 +148,22 @@ class GradeController extends Controller
         $initials = $user->initials();
 
         /** @var Subject $targetSubject */
+        if(array_key_exists('work_id',$validatedData)){
+            $work = Work::find($validatedData['work_id']);
+            if(!($work->subject->name===$targetSubject->name)){
+                return response()->json([
+                    'message'=>"Тема \"$work->theme\" не относится к предмету \"$targetSubject->name\""
+                ],403);
+            }
+        }
         $targetSubject = Subject::find($validatedData['subject_id']);
 
-        $work = Work::find($validatedData['work_id']);
-        if(!($work->subject->name===$targetSubject->name)){
-            return response()->json([
-                'message'=>"Тема \"$work->theme\" не относится к предмету \"$targetSubject->name\""
-            ],403);
-        }
-
         //Проверка что преподаватель вообще ведет этот предмет
-        if (!($targetSubject->teacher->id == $request->user()->id)){
+
+        $reqUserSubjects = $request->user()->subjects->map(function ($item,$key){
+            return $item->name;
+        })->values();
+        if (!($reqUserSubjects->contains($targetSubject->name))){
             return response()->json([
                 'message'=>"Вы не ведете предмет \"$targetSubject->name\""
             ],403);
@@ -221,23 +235,57 @@ class GradeController extends Controller
         $semester = Semester::find($validatedData['semester_id']);
         unset($semester['from']);
         unset($semester['to']);
+        $sub = Subject::query()->find($validatedData['subject_id'])->name;
+        $ids = Subject::query()->where('name',$sub)->get()->map(function ($item){
+            return $item->id;
+        })->values()->toArray();
 
-        $students = $group->grades()
+
+        $students = $group
+            ->grades()
+            ->join('subjects','grades.subject_id','=','subjects.id')
             ->where('semester_id', $validatedData['semester_id'])
-            ->where('subject_id', $validatedData['subject_id'])
+            ->whereIn('subject_id', $ids)
             ->get()
             ->groupBy(['user_id'])
             ->map(function ($items){
                 /** @var User $user */
                 $user = User::find($items[0]->user_id);
+                $allGrades = $items->map(function ($item){
+                    return (int)$item->grade;
+                })->values();
+                $avgGrade = array_sum($allGrades->toArray())/$allGrades->count();
+
                 return [
                     'id'=>$user->id,
                     'name'=>$user->name,
                     'surname'=>$user->surname,
                     'patronymic'=>$user->patronymic,
+                    'avg'=>round($avgGrade,2),
                     'grades'=>DetailedMiniGradeResource::collection($items),
                 ];
             })->values();
+
+        $existsCompare = $students->map(function ($student){
+            return $student['id'];
+        })->values();
+
+        $allExists = $group->users->map(function ($user){
+            return $user->id;
+        })->values();
+
+        foreach ($allExists->diff($existsCompare)->values() as $item){
+            /** @var User $stud */
+            $stud = User::find($item);
+            $students[]=[
+                'id'=>$stud->id,
+                'name'=>$stud->name,
+                'surname'=>$stud->surname,
+                'patronymic'=>$stud->patronymic,
+                'avg'=>0,
+                'grades'=>[],
+            ];
+        }
         return response()->json([
             'semester'=>$semester,
             'students'=>$students,

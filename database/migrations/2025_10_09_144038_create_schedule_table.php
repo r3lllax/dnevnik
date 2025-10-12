@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('date');
             $table->boolean('highlight')->default(false);
             $table->foreignId('room_id')->constrained('rooms');
+            $table->foreignId('semester_id')->constrained('semesters');
 
         });
     }

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $to
  *
  * @property-read Grade[] $grades
+ * @property-read Schedule[] $schedule
  */
 class Semester extends Model
 {
@@ -28,5 +29,13 @@ class Semester extends Model
     public function grades(): HasMany
     {
         return $this->hasMany(Grade::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function schedule(): HasMany
+    {
+        return $this->hasMany(Schedule::class);
     }
 }

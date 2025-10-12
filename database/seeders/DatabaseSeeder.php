@@ -387,145 +387,145 @@ class DatabaseSeeder extends Seeder
         // --- Расписание занятий (3 недели) ---
         DB::table('schedule')->insert([
             // ===== Группа 1 (6-дневка) =====
-            ['group_id' => 1, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-10', 'comment' => 'Повторение формул', 'highlight' => false],
-            ['group_id' => 1, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 2, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false],
-            ['group_id' => 1, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 3, 'room_id' => 3, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false],
+            ['group_id' => 1, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-10', 'comment' => 'Повторение формул', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 2, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 3, 'room_id' => 3, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 1, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-11', 'comment' => 'Лабораторная работа', 'highlight' => true],
-            ['group_id' => 1, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false],
-            ['group_id' => 1, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 3, 'room_id' => 5, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false],
+            ['group_id' => 1, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-11', 'comment' => 'Лабораторная работа', 'highlight' => true,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 3, 'room_id' => 5, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 1, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-12', 'comment' => '', 'highlight' => false],
-            ['group_id' => 1, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 2, 'room_id' => 2, 'date' => '2025-03-12', 'comment' => 'Практическая работа', 'highlight' => true],
-            ['group_id' => 1, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-12', 'comment' => '', 'highlight' => false],
+            ['group_id' => 1, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-12', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 2, 'room_id' => 2, 'date' => '2025-03-12', 'comment' => 'Практическая работа', 'highlight' => true,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-12', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 1, 'subject_id' => 8, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 5, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false],
-            ['group_id' => 1, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 2, 'date' => '2025-03-13', 'comment' => 'Подготовка к контрольной', 'highlight' => true],
+            ['group_id' => 1, 'subject_id' => 8, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 5, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 2, 'date' => '2025-03-13', 'comment' => 'Подготовка к контрольной', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 1, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false],
-            ['group_id' => 1, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 4, 'room_id' => 4, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false],
+            ['group_id' => 1, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 4, 'room_id' => 4, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 1, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-15', 'comment' => 'Контрольная работа', 'highlight' => true],
+            ['group_id' => 1, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-15', 'comment' => 'Контрольная работа', 'highlight' => true,'semester_id'=>2],
 
             // 2 неделя
-            ['group_id' => 1, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false],
-            ['group_id' => 1, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false],
-            ['group_id' => 1, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false],
+            ['group_id' => 1, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 1, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 2, 'room_id' => 5, 'date' => '2025-03-18', 'comment' => '', 'highlight' => false],
-            ['group_id' => 1, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-18', 'comment' => '', 'highlight' => false],
+            ['group_id' => 1, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 2, 'room_id' => 5, 'date' => '2025-03-18', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-18', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 1, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-19', 'comment' => 'Практическая', 'highlight' => true],
-            ['group_id' => 1, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 2, 'date' => '2025-03-19', 'comment' => '', 'highlight' => false],
+            ['group_id' => 1, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-19', 'comment' => 'Практическая', 'highlight' => true,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 2, 'date' => '2025-03-19', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 1, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 1, 'room_id' => 4, 'date' => '2025-03-20', 'comment' => '', 'highlight' => false],
-            ['group_id' => 1, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 2, 'room_id' => 1, 'date' => '2025-03-20', 'comment' => 'Разбор задач', 'highlight' => true],
+            ['group_id' => 1, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 1, 'room_id' => 4, 'date' => '2025-03-20', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 2, 'room_id' => 1, 'date' => '2025-03-20', 'comment' => 'Разбор задач', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 1, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 3, 'room_id' => 5, 'date' => '2025-03-21', 'comment' => '', 'highlight' => false],
-            ['group_id' => 1, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 4, 'room_id' => 2, 'date' => '2025-03-21', 'comment' => '', 'highlight' => false],
+            ['group_id' => 1, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 3, 'room_id' => 5, 'date' => '2025-03-21', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 1, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 4, 'room_id' => 2, 'date' => '2025-03-21', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 1, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-22', 'comment' => 'Лабораторная', 'highlight' => true],
+            ['group_id' => 1, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-22', 'comment' => 'Лабораторная', 'highlight' => true,'semester_id'=>2],
 
             // ===== Группа 2 (6-дневка) =====
-            ['group_id' => 2, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 1, 'room_id' => 2, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false],
-            ['group_id' => 2, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false],
-            ['group_id' => 2, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 3, 'room_id' => 5, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false],
+            ['group_id' => 2, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 1, 'room_id' => 2, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 2, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 2, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 3, 'room_id' => 5, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 2, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 2, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false],
-            ['group_id' => 2, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false],
-            ['group_id' => 2, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 1, 'date' => '2025-03-11', 'comment' => 'Разбор задач', 'highlight' => true],
+            ['group_id' => 2, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 2, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 2, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 2, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 1, 'date' => '2025-03-11', 'comment' => 'Разбор задач', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 2, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 1, 'room_id' => 4, 'date' => '2025-03-12', 'comment' => '', 'highlight' => false],
-            ['group_id' => 2, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-12', 'comment' => 'Практическая', 'highlight' => true],
+            ['group_id' => 2, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 1, 'room_id' => 4, 'date' => '2025-03-12', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 2, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-12', 'comment' => 'Практическая', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 2, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false],
-            ['group_id' => 2, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 4, 'room_id' => 4, 'date' => '2025-03-13', 'comment' => 'Тест по истории', 'highlight' => true],
+            ['group_id' => 2, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 2, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 4, 'room_id' => 4, 'date' => '2025-03-13', 'comment' => 'Тест по истории', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 2, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 2, 'room_id' => 5, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false],
-            ['group_id' => 2, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false],
+            ['group_id' => 2, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 2, 'room_id' => 5, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 2, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 2, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-15', 'comment' => 'Лабораторная работа', 'highlight' => true],
+            ['group_id' => 2, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-15', 'comment' => 'Лабораторная работа', 'highlight' => true,'semester_id'=>2],
 
             // --- Продолжение расписания (Группы 3, 4, 5) ---
 
 // ===== Группа 3 (6-дневка) =====
-            ['group_id' => 3, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false],
-            ['group_id' => 3, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false],
-            ['group_id' => 3, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false],
+            ['group_id' => 3, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 3, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 1, 'room_id' => 2, 'date' => '2025-03-11', 'comment' => 'Контрольная по информатике', 'highlight' => true],
-            ['group_id' => 3, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 2, 'room_id' => 5, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false],
-            ['group_id' => 3, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false],
+            ['group_id' => 3, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 1, 'room_id' => 2, 'date' => '2025-03-11', 'comment' => 'Контрольная по информатике', 'highlight' => true,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 2, 'room_id' => 5, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 3, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 1, 'room_id' => 4, 'date' => '2025-03-12', 'comment' => '', 'highlight' => false],
-            ['group_id' => 3, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 2, 'room_id' => 1, 'date' => '2025-03-12', 'comment' => 'Разбор задач', 'highlight' => true],
+            ['group_id' => 3, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 1, 'room_id' => 4, 'date' => '2025-03-12', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 2, 'room_id' => 1, 'date' => '2025-03-12', 'comment' => 'Разбор задач', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 3, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false],
-            ['group_id' => 3, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 4, 'room_id' => 3, 'date' => '2025-03-13', 'comment' => 'Практическая работа', 'highlight' => true],
+            ['group_id' => 3, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 4, 'room_id' => 3, 'date' => '2025-03-13', 'comment' => 'Практическая работа', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 3, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 1, 'room_id' => 5, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false],
-            ['group_id' => 3, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false],
+            ['group_id' => 3, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 1, 'room_id' => 5, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 3, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 1, 'date' => '2025-03-15', 'comment' => 'Контрольная работа', 'highlight' => true],
+            ['group_id' => 3, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 1, 'date' => '2025-03-15', 'comment' => 'Контрольная работа', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 3, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 1, 'room_id' => 4, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false],
-            ['group_id' => 3, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false],
-            ['group_id' => 3, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false],
+            ['group_id' => 3, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 1, 'room_id' => 4, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 3, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-18', 'comment' => '', 'highlight' => false],
-            ['group_id' => 3, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-18', 'comment' => '', 'highlight' => false],
+            ['group_id' => 3, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-18', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-18', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 3, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-19', 'comment' => '', 'highlight' => false],
-            ['group_id' => 3, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 4, 'room_id' => 4, 'date' => '2025-03-19', 'comment' => 'Практика', 'highlight' => true],
+            ['group_id' => 3, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-19', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 4, 'room_id' => 4, 'date' => '2025-03-19', 'comment' => 'Практика', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 3, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 1, 'room_id' => 5, 'date' => '2025-03-20', 'comment' => '', 'highlight' => false],
-            ['group_id' => 3, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-20', 'comment' => 'Лабораторная', 'highlight' => true],
+            ['group_id' => 3, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 1, 'room_id' => 5, 'date' => '2025-03-20', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-20', 'comment' => 'Лабораторная', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 3, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 1, 'room_id' => 4, 'date' => '2025-03-21', 'comment' => '', 'highlight' => false],
-            ['group_id' => 3, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-21', 'comment' => '', 'highlight' => false],
+            ['group_id' => 3, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 1, 'room_id' => 4, 'date' => '2025-03-21', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 3, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-21', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 3, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-22', 'comment' => 'Контрольная работа', 'highlight' => true],
+            ['group_id' => 3, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-22', 'comment' => 'Контрольная работа', 'highlight' => true,'semester_id'=>2],
 
 
             // ===== Группа 4 (5-дневка) =====
-            ['group_id' => 4, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 1, 'room_id' => 4, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false],
-            ['group_id' => 4, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false],
-            ['group_id' => 4, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-10', 'comment' => 'Практика', 'highlight' => true],
+            ['group_id' => 4, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 1, 'room_id' => 4, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 4, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 4, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-10', 'comment' => 'Практика', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 4, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 1, 'room_id' => 5, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false],
-            ['group_id' => 4, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false],
+            ['group_id' => 4, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 1, 'room_id' => 5, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 4, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 4, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-12', 'comment' => 'Контрольная работа', 'highlight' => true],
-            ['group_id' => 4, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 4, 'room_id' => 1, 'date' => '2025-03-12', 'comment' => '', 'highlight' => false],
+            ['group_id' => 4, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-12', 'comment' => 'Контрольная работа', 'highlight' => true,'semester_id'=>2],
+            ['group_id' => 4, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 4, 'room_id' => 1, 'date' => '2025-03-12', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 4, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false],
-            ['group_id' => 4, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false],
+            ['group_id' => 4, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 2, 'room_id' => 3, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 4, 'subject_id' => 5, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 4, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-14', 'comment' => 'Лабораторная работа', 'highlight' => true],
+            ['group_id' => 4, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-14', 'comment' => 'Лабораторная работа', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 4, 'subject_id' => 8, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 5, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false],
-            ['group_id' => 4, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 2, 'room_id' => 1, 'date' => '2025-03-17', 'comment' => 'Разбор задач', 'highlight' => true],
-            ['group_id' => 4, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false],
+            ['group_id' => 4, 'subject_id' => 8, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 5, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 4, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 2, 'room_id' => 1, 'date' => '2025-03-17', 'comment' => 'Разбор задач', 'highlight' => true,'semester_id'=>2],
+            ['group_id' => 4, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-17', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
 
             // ===== Группа 5 (5-дневка) =====
-            ['group_id' => 5, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false],
-            ['group_id' => 5, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 2, 'room_id' => 1, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false],
-            ['group_id' => 5, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-10', 'comment' => 'Подготовка к лабе', 'highlight' => true],
+            ['group_id' => 5, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 5, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 2, 'room_id' => 1, 'date' => '2025-03-10', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 5, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-10', 'comment' => 'Подготовка к лабе', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 5, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false],
-            ['group_id' => 5, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false],
+            ['group_id' => 5, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 5, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-11', 'comment' => '', 'highlight' => false,'semester_id'=>2],
 
-            ['group_id' => 5, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-12', 'comment' => '', 'highlight' => false],
-            ['group_id' => 5, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 4, 'room_id' => 2, 'date' => '2025-03-12', 'comment' => 'Практическая работа', 'highlight' => true],
+            ['group_id' => 5, 'subject_id' => 4, 'teacher_id' => 8, 'time_id' => 3, 'room_id' => 4, 'date' => '2025-03-12', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 5, 'subject_id' => 6, 'teacher_id' => 2, 'time_id' => 4, 'room_id' => 2, 'date' => '2025-03-12', 'comment' => 'Практическая работа', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 5, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false],
-            ['group_id' => 5, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 2, 'room_id' => 5, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false],
-            ['group_id' => 5, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-13', 'comment' => 'Контрольная работа', 'highlight' => true],
+            ['group_id' => 5, 'subject_id' => 1, 'teacher_id' => 2, 'time_id' => 1, 'room_id' => 1, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 5, 'subject_id' => 9, 'teacher_id' => 8, 'time_id' => 2, 'room_id' => 5, 'date' => '2025-03-13', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 5, 'subject_id' => 2, 'teacher_id' => 4, 'time_id' => 3, 'room_id' => 2, 'date' => '2025-03-13', 'comment' => 'Контрольная работа', 'highlight' => true,'semester_id'=>2],
 
-            ['group_id' => 5, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false],
-            ['group_id' => 5, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false],
-            ['group_id' => 5, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 3, 'room_id' => 3, 'date' => '2025-03-14', 'comment' => 'Лабораторная работа', 'highlight' => true],
+            ['group_id' => 5, 'subject_id' => 7, 'teacher_id' => 5, 'time_id' => 1, 'room_id' => 3, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 5, 'subject_id' => 10, 'teacher_id' => 4, 'time_id' => 2, 'room_id' => 4, 'date' => '2025-03-14', 'comment' => '', 'highlight' => false,'semester_id'=>2],
+            ['group_id' => 5, 'subject_id' => 3, 'teacher_id' => 5, 'time_id' => 3, 'room_id' => 3, 'date' => '2025-03-14', 'comment' => 'Лабораторная работа', 'highlight' => true,'semester_id'=>2],
         ]);
 
 
@@ -604,6 +604,57 @@ class DatabaseSeeder extends Seeder
             ['user_id' => 13, 'subject_id' => 9, 'work_id' => 5, 'grade' => 5, 'semester_id' => 2, 'date' => '2025-05-12', 'comment' => 'Хороший результат экзамена'],
             ['user_id' => 14, 'subject_id' => 10,'work_id' => 6, 'grade' => 5, 'semester_id' => 2, 'date' => '2025-05-15', 'comment' => 'Отличное эссе на тему философии'],
 
+        ]);
+
+        DB::table('attendance')->insert([
+            [
+                'user_id' => 6,
+                'schedule_id' => 2,
+                'is_present'=>false,
+                'reason'=>null,
+                'reasonable'=>false,
+                'passed_hours'=>2,
+            ],
+            [
+                'user_id' => 6,
+                'schedule_id' => 1,
+                'is_present'=>true,
+                'reason'=>null,
+                'reasonable'=>null,
+                'passed_hours'=>0,
+            ],
+            [
+                'user_id' => 6,
+                'schedule_id' => 3,
+                'is_present'=>false,
+                'reason'=>null,
+                'reasonable'=>false,
+                'passed_hours'=>2,
+            ],
+            [
+                'user_id' => 7,
+                'schedule_id' => 2,
+                'is_present'=>true,
+                'reason'=>null,
+                'reasonable'=>null,
+                'passed_hours'=>0,
+            ],
+            [
+                'user_id' => 6,
+                'schedule_id' => 1,
+                'is_present'=>true,
+                'reason'=>null,
+                'reasonable'=>null,
+                'passed_hours'=>0,
+            ],
+            [
+                'user_id' => 6,
+                'schedule_id' => 3,
+                'is_present'=>false,
+                'reason'=>null,
+                'reasonable'=>true,
+                'passed_hours'=>2,
+            ],
         ]);
     }
 }

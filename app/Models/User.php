@@ -30,6 +30,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read string $initials
  * @property-read Role $role
  * @property-read Subject[] $subjects
+ * @property-read Attendance[] $attendance
  */
 class User extends Authenticatable
 {
@@ -120,5 +121,11 @@ class User extends Authenticatable
         return $this->hasMany(Subject::class,'teacher_id','id');
     }
 
-    //Todo Связи с посещаемостью
+    /**
+     * @return HasMany
+     */
+    public function attendance(): HasMany
+    {
+        return $this->hasMany(Attendance::class,'user_id','id');
+    }
 }

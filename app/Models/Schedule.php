@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read Subject_time $time
  * @property-read User $teacher
  * @property-read Room $room
+ * @property-read Semester $semester
+ * @property-read Attendance[] $attendance
  */
 class Schedule extends Model
 {
@@ -66,5 +69,19 @@ class Schedule extends Model
         return $this->hasOne(Room::class, 'id', 'room_id');
     }
 
-    //TODO связи с посещаемостью
+    /**
+     * @return HasOne
+     */
+    public function semester(): HasOne
+    {
+        return $this->hasOne(Semester::class, 'id', 'semester_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function attendance(): HasMany
+    {
+        return $this->hasMany(Attendance::class, 'schedule_id', 'id');
+    }
 }

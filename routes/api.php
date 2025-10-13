@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GradeController;
+use App\Http\Controllers\Api\GroupController;
 use App\Http\Controllers\Api\ScheduleController;
 use App\Http\Controllers\Api\SemesterController;
 use App\Http\Controllers\Api\WorkController;
@@ -14,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\withMiddleware as withMiddlewareAlias;
 
 //TODO app_debug false при релизе
+//TODO поменять локаль приложения
 Route::post('/auth',[AuthController::class,'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -25,7 +28,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // 2 - Teacher
     Route::group(['middleware' => ['role:2']], function () {
         Route::get('/types',function(){
-            return response()->json(Work_type::all());
+            return response()->json(['types'=>Work_type::all()]);
         });
         Route::post('/job',[WorkController::class,'create']);
         Route::get('/job',[WorkController::class,'index']);
@@ -34,11 +37,19 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::patch('/grade/{grade}/edit',[GradeController::class,'edit']);
         Route::post('/student/{user}/add_grade',[GradeController::class,'create']);
         Route::get('/group/{group}/grades',[GradeController::class,'groupGrades']);
+        Route::get('/group/{group}',[GroupController::class,'index']);
+        Route::get('/attendance/',[AttendanceController::class,'show']);
+        Route::post('/attendance/',[AttendanceController::class,'create']); //TODO
     });
 
     // 3 - Student(includes headman)
     Route::group(['middleware' => ['role:3,4']], function () {
         Route::get('/grades',[GradeController::class,'index']);
+    });
+
+    // 4 - headman
+    Route::group(['middleware' => ['role:4']], function () {
+        Route::get('/attendance/',[AttendanceController::class,'index']);
     });
 
     //Смешанные
@@ -58,10 +69,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/schedule',[ScheduleController::class,'index']);
 
     Route::get('/test',function(){
-
-        /** @var \App\Models\Group $group */
-        $group = \App\Models\Group::find(5);
-        return $group->users;
+        return \App\Models\Attendance::all();
     });
 });
 

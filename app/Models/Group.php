@@ -77,7 +77,10 @@ class Group extends Model
         return (bool)$teachers->contains($uid);
     }
 
-    public function headman()
+    /**
+     * @return User
+     */
+    public function headman(): User
     {
         return $this->users()->where('role_id',Role::query()->where('name','Староста')->first()->id)->first();
     }

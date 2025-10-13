@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 
 /**
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * @property-read Schedule $schedule_day
  * @property-read User $user
+ * @property-read Semester $semester
  */
 class Attendance extends Model
 {
@@ -45,5 +47,13 @@ class Attendance extends Model
     public function user(): HasOne
     {
         return $this->hasOne(User::class,'id','user_id');
+    }
+
+    /**
+     * @return HasOneThrough
+     */
+    public function semester(): HasOneThrough
+    {
+        return $this->hasOneThrough(Semester::class,Schedule::class,'id','id','schedule_id','semester_id');
     }
 }

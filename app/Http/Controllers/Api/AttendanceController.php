@@ -111,7 +111,6 @@ class AttendanceController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-
         [$validatedData] = $this->validateQuery($request->query(),[
             'semester_id' => 'required|integer|exists:semesters,id',
             'month' => 'required|integer|between:1,12',

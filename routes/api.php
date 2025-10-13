@@ -38,8 +38,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/student/{user}/add_grade',[GradeController::class,'create']);
         Route::get('/group/{group}/grades',[GradeController::class,'groupGrades']);
         Route::get('/group/{group}',[GroupController::class,'index']);
-        Route::get('/attendance/',[AttendanceController::class,'show']);
-        Route::post('/attendance/',[AttendanceController::class,'create']); //TODO
+        Route::get('/attendance',[AttendanceController::class,'show']);
+        Route::post('/attendance',[AttendanceController::class,'create']); //TODO
     });
 
     // 3 - Student(includes headman)
@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // 4 - headman
     Route::group(['middleware' => ['role:4']], function () {
-        Route::get('/attendance/',[AttendanceController::class,'index']);
+        Route::get('/my_group/attendance',[AttendanceController::class,'index']);
     });
 
     //Смешанные

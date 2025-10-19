@@ -37,12 +37,14 @@ class AuthController extends Controller
             /** @var User $user */
             $user = auth()->user();
             $userResponse = [...$user->toArray()];
+            unset($userResponse['role_id']);
             unset($userResponse['group_id']);
             unset($userResponse['created_at']);
             return response()->json([
                 'user'=>[
                     ...$userResponse,
                     'group'=>$user->group,
+                    'role'=>$user->role
                 ],
                 'token'=>$user->createToken('api')->plainTextToken,
             ]);
